@@ -1,0 +1,5 @@
+<% content_for :title do %>
+  <%= "ユーザー一覧 | beagle" %>
+<% end %>
+
+<%= render "users", title:@title, users:@users, users_count:@users_count %>

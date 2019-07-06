@@ -1,0 +1,40 @@
+<% content_for :title do %>
+  <%= "パスワードを忘れた方 | beagle" %>
+<% end %>
+
+<div id="form">
+  <h1>パスワードを忘れた方</h1>
+  <p>入力したメールアドレスあてにパスワードリセットのメールを送ります。</p>
+
+  <%= form_for(resource, as: resource_name, url: password_path, html: { method: :post }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <label>メールアドレス</label>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "require" %>
+    </div>
+
+    <script>
+      $(function(){
+        // メールアドレスを入力したらsubmitできる
+        setInterval(function(){
+          let value = $(".require").val();
+          if ( value == "" || !value.match(/[^\s\t]/) ) {
+            $("#btn").css({"background":"#9fa0a0"});
+            $("#btn").prop("disabled", true);
+          } else {
+            $("#btn").css({"background":"#263238"});
+            $("#btn").prop("disabled", false);
+          }
+        },1000);
+      });
+    </script>
+
+    <div class="actions">
+      <%= f.submit "送信", disabled:true, id: "btn" %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+
+</div>

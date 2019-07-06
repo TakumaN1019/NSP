@@ -1,0 +1,23 @@
+<div id="users">
+  <h1><%= title %></h1>
+
+  <div id="users_count">
+    <p>USERS: <%= users_count %></p>
+  </div>
+
+  <% users.each do |user| %>
+    <div class="user_field">
+      <%= link_to user_path(user.id), class:"user" do %>
+        <div class="user_image">
+          <%= image_tag user.image.url if user.image? %>
+          <% if not user.image? %> <%# ユーザー画像がなければ白ヤギさんか黒ヤギさんの画像をランダムに表示する %>
+            <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/simple-post-mall/base/white_goat.jpg" %>
+          <% end %>
+        </div>
+        <h4 class="user_name"><%= user.name %></h4>
+      <% end %>
+    </div>
+  <% end %>
+  <div style="clear:both;"></div><!-- padding-bottomを効かせるためのもの -->
+</div>
+

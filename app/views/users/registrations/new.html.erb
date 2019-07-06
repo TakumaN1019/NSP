@@ -1,0 +1,111 @@
+<% content_for :title do %>
+  <%= "新規登録 | beagle" %>
+<% end %>
+
+<div id="form">
+  <h1>ルール</h1>
+
+  <p>当サービスはゴリラ専用です。残念ながら人間のご利用はできませんのでご了承ください。</p>
+
+  <p>メスゴリラへの過度な求愛ウホはやめましょう。</p>
+
+
+  <div id="auth_links">
+    <h1>SNSアカウントで登録</h1>
+    <% if devise_mapping.omniauthable? %>
+      <% resource_class.omniauth_providers.each do |provider| %>
+        <% if OmniAuth::Utils.camelize(provider) == "Twitter" %>
+          <%= link_to(omniauth_authorize_path(resource_name, provider), class:"auth_link twitter") do %>
+            <i class="fab fa-twitter"></i> Twitter
+          <% end %>
+        <% elsif OmniAuth::Utils.camelize(provider) == "GoogleOauth2"  %>
+          <%= link_to(omniauth_authorize_path(resource_name, provider), class:"auth_link google") do %>
+            <i class="fab fa-google"></i> Google
+          <% end %>
+        <% elsif OmniAuth::Utils.camelize(provider) == "Facebook" %>
+          <%= link_to(omniauth_authorize_path(resource_name, provider), class:"auth_link facebook") do %>
+            <i class="fab fa-facebook-f"></i> Facebook
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h1>メールアドレスで登録</h1>
+
+  <%= form_for(resource, as: resource_name, url: signup_post_path(resource_name)) do |f| %>
+
+    <div class="field">
+      <label>メールアドレス</label>
+      <%= f.email_field :email, autofocus: false, autocomplete: "email", class: "require1" %>
+    </div>
+
+    <div class="field">
+      <label>パスワード(6文字以上)</label>
+      <%= f.password_field :password, autocomplete: "new-password", class: "require2" %>
+    </div>
+
+    <div class="field">
+      <label>パスワード確認</label>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "require3" %>
+    </div>
+
+    <p id="require_message" style="text-align:center; clear:both;"></p>
+
+    <script>
+      $(function(){
+        // 空白またはスペースであればsubmitさせない
+        setInterval(function(){
+          let value1 = $(".require1").val();
+          let value2 = $(".require2").val();
+          let value3 = $(".require3").val();
+          if ( value1 == "" || !value1.match(/[^\s\t]/) || value2 == "" || !value2.match(/[^\s\t]/) || value3 == "" || !value3.match(/[^\s\t]/) ||
+               value2.length < 6 || value2 != value3) {
+            $("#btn").css({"background":"#9fa0a0"});
+            $("#btn").prop("disabled", true);
+          } else {
+            $("#btn").css({"background":"#263238"});
+            $("#btn").prop("disabled", false);
+          }
+          // パスワードが１文字以上、６文字未満の状態で入力欄から離れたらメッセージを表示
+          $(".require2").on("blur", function(){
+            if (value2.length > 0 && value2.length < 6) {
+              $("#require_message").text("パスワードは６文字以上にしましょう");
+            } else {
+              if (value2.length >= 6 && value3.length > 0 && value2 != value3) {
+                $("#require_message").text("パスワードとパスワード確認の値が一致していません");
+              } else {
+                $("#require_message").text("");
+              }
+            }
+          });
+          // パスワードが６文字以上かつパスワード確認と値が一致していない状態で入力欄(パスワード確認)>から離れたら表示
+          $(".require3").on("blur", function(){
+            if (value2.length > 0 && value2.length < 6) {
+              $("#require_message").text("パスワードは６文字以上にしましょう");
+            } else {
+              if (value2.length >= 6 && value3.length > 0 && value2 != value3) {
+                $("#require_message").text("パスワードとパスワード確認の値が一致していません");
+              } else {
+                $("#require_message").text("");
+              }
+            }
+          });
+          if (value2.length >= 6 && value3.length >= 6 && value2 == value3) {
+            $("#require_message").text("");
+          }
+        },1000);
+      });
+    </script>
+
+    <div class="actions">
+      <%= f.submit "登録", disabled:true, id:"btn" %>
+    </div>
+  <% end %>
+
+
+  <%= render "users/shared/links" %>
+
+
+</div>
+

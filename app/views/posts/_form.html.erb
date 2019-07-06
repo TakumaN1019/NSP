@@ -1,0 +1,59 @@
+<%# 本来であれば下のような書き方で適切にルーティングできるのだが、URLのparamをcodeに変更したのでアクションメソッドを明示的に示す必要がある。  %>
+<%#= form_with(model: post, local: true) do |form| if @url.include?("new") %>
+<%= form_for @post, :url => {:action => @action} do |form| %>
+
+  <% if @post.errors.any? %>
+    <div class="field error_field">
+      <% @post.errors.full_messages.each do |message| %>
+        <p class="error_message"><i class="far fa-comment"></i> <%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field"><%= form.text_area :text, maxlength: "200", placeholder:"", class:"text_form" %></div>
+
+  <div class="field">
+    <% if form.object.image? %>
+      <div class="imagePreview image_there"><%= image_tag(form.object.image_url) %></div>
+      <label class="remove_label"><%= form.check_box :remove_image, class:"remove_image_btn" %>画像を削除</label>
+    <% else %>
+      <div class="imagePreview image_none"></div>
+      <label class="remove_label" style="display:none;"><%= form.check_box :remove_image, class:"remove_image_btn" %>画像を削除</label>
+    <% end %>
+    <div class="input-group">
+      <label class="input-group-btn">
+        <span class="btn btn-primary">
+          <i class="fas fa-image"></i><%= form.file_field :image, class:"uploadFile image_form", style:"display:none" %><%= form.hidden_field :image_cache %>
+        </span>
+      </label>
+    </div>
+  </div>
+
+
+  <script>
+    // 入力チェックのスクリプト
+    $(function(){
+      // テキストもしくは画像に値が入っていなければsubmitさせない
+      setInterval(function(){
+        let text = $(".text_form").val();
+        let image = $(".image_form").val();
+        if ( text == "" && image == "" ) {
+          $("#btn").css({"background":"#9fa0a0"});
+          $("#btn").prop("disabled", true);
+        } else if ( !text.match(/[^\s\t]/) && image == "" ) { // textにスペースの入力、画像は空白という場合はsubmitさせない
+          $("#btn").css({"background":"#9fa0a0"});
+          $("#btn").prop("disabled", true);
+        } else {
+          $("#btn").css({"background":"#263238"});
+          $("#btn").prop("disabled", false);
+        }
+      },1000);
+    });
+  </script>
+
+  <div class="actions">
+    <%= form.submit "保存", disabled:true, id:"btn" %>
+  </div>
+
+<% end %>
+

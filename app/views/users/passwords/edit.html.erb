@@ -1,0 +1,75 @@
+<% content_for :title do %>
+  <%= "パスワード再発行 | beagle" %>
+<% end %>
+
+<div id="form">
+  <h1>パスワード再発行</h1>
+  <p>パスワードを２回入力して再発行しましょう。</p>
+
+  <%= form_for(resource, as: resource_name, url: update_password_path, html: { method: :put }) do |f| %>
+    <%= f.hidden_field :reset_password_token %>
+
+    <div class="field">
+      <label>パスワード(６文字以上)</label>
+      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class:"require1" %>
+    </div>
+
+    <div class="field">
+      <label>パスワード確認</label>
+      <%= f.password_field :password_confirmation, autocomplete: "off", class:"require2" %>
+    </div>
+    <p id="require_message" style="text-align:center; clear:both;"></p>
+
+    <script>
+      $(function(){
+        // コンテンツタイトルが空白またはスペースだけであればsubmitさせない
+        setInterval(function(){
+          let value1 = $(".require1").val();
+          let value2 = $(".require2").val();
+          if ( value1 == "" || !value1.match(/[^\s\t]/) || value2 == "" || !value2.match(/[^\s\t]/) ||
+               value1.length < 6 || value1 != value2) {
+            $("#btn").css({"background":"#9fa0a0"});
+            $("#btn").prop("disabled", true);
+          } else {
+            $("#btn").css({"background":"#263238"});
+            $("#btn").prop("disabled", false);
+          }
+          // パスワードが１文字以上、６文字未満の状態で入力欄から離れたらメッセージを表示
+          $(".require1").on("blur", function(){
+            if (value1.length > 0 && value1.length < 6) {
+              $("#require_message").text("パスワードは６文字以上にしましょう");
+            } else {
+              if (value1.length >= 6 && value2.length > 0 && value1 != value2) {
+                $("#require_message").text("パスワードとパスワード確認の値が一致していません");
+              } else {
+                $("#require_message").text("");
+              }
+            }
+          });
+          // パスワードが６文字以上かつパスワード確認と値が一致していない状態で入力欄(パスワード確認)>から離れたら表示
+          $(".require2").on("blur", function(){
+            if (value1.length > 0 && value1.length < 6) {
+              $("#require_message").text("パスワードは６文字以上にしましょう");
+            } else {
+              if (value1.length >= 6 && value2.length > 0 && value1 != value2) {
+                $("#require_message").text("パスワードとパスワード確認の値が一致していません");
+              } else {
+                $("#require_message").text("");
+              }
+            }
+          });
+          if (value1.length >= 6 && value2.length >= 6 && value1 == value2) {
+            $("#require_message").text("");
+          }
+        },1000);
+      });
+    </script>
+
+      <div class="actions">
+        <%= f.submit "再発行", disabled:true, id:"btn" %>
+      </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+
+</div>

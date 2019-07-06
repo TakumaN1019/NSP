@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <%= "ランキング | beagle" %>
+<% end %>
+
+<%# アドセンス広告=>レクタングル大 %>
+<%= render "home/adsense" %>
+
+<div id="posts_pressure">
+  <%= render "posts", posts:@posts %>
+</div>
+
+<%# アドセンス広告=>レクタングル大 %>
+<%= render "home/adsense" %>

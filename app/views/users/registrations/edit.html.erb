@@ -1,0 +1,98 @@
+<% content_for :title do %>
+  <%= "アカウントの編集 | beagle" %>
+<% end %>
+
+<div id="form">
+  <h1>アカウントの編集</h1>
+
+  <%= form_for(@user, as: @user, url: update_user_path, html: { method: :put, class:'form-horizontal add-card' }) do |f| %>
+
+    <% if @user.errors.any? %>
+      <div class="field error_field">
+        <% @user.errors.full_messages.each do |message| %>
+          <p class="error_message"><i class="far fa-comment"></i> <%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <% if f.object.image? %>
+        <div class="imagePreview image_there"><%= image_tag(f.object.image_url) %></div>
+      <% else %>
+        <div class="imagePreview image_none"></div>
+      <% end %>
+      <div class="input-group">
+        <label class="input-group-btn">
+          <span class="btn btn-primary">
+            <i class="fas fa-image"></i><%= f.file_field :image, class:"uploadFile", style:"display:none" %><%= f.hidden_field :image_cache %>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field"><label>ユーザーネーム</label><%= f.text_field :name, maxlength: "20", class: "require1" %></div>
+
+    <div class="field">
+      <label>メールアドレス</label><%= f.email_field :email %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <p>新しいメールアドレス(<%= resource.unconfirmed_email %>)あてに確認メールを送信しています。<br>
+           メールアドレスの変更を完了するにはメール内のリンクをクリックしてください。</p>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <p id="password_change_btn">パスワード変更 <i class="fas fa-angle-down"></i></p>
+      <div id="password_change_field">
+        <label>新しいパスワード(６文字以上)</label>
+        <%= f.password_field :password, id:"password" %>
+        <label>パスワード確認</label>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", id:"password_confirmation" %>
+        <%# 現在のパスワードも入力する場合はコメントを外して、コントローラのparamsにcurrent_passwotdを
+追加。update内のpassword空白時にparamsから削除するのも忘れずに %>
+        <%#= f.password_field :current_password, autocomplete: "current-password" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= link_to "退会", destroy_user_path(@user.id), data: { confirm: "本当に退会しますか？" }, method: :delete, id: "delete_bth" %>
+    </div>
+
+    <script>
+      $(function(){
+        // メールアドレスを入力したらsubmitできる
+        setInterval(function(){
+          let value1 = $(".require1").val();
+          let password1 = $("#password").val();
+          let password2 = $("#password_confirmation").val();
+          if ( value1 == "" || !value1.match(/[^\s\t]/) ) {
+            $("#btn").css({"background":"#9fa0a0"});
+            $("#btn").prop("disabled", true);
+          } else {
+            $("#btn").css({"background":"#263238"});
+            $("#btn").prop("disabled", false);
+          }
+          // パスワード欄に何らかの入力があり、それが半角英数字とアンダーバーだけで構成されており、「>６文字未満」または「パスワードとパスワード確認の不一致」の場合はsubmitさせない。
+          if (password1 != "" || password1.match(/[^\s\t]/) || password2 != "" || password2.match(/[^\s\t]/) || value2.match(/[^\w]/)) {
+            if (password1.length < 6 || password1 != password2) {
+              $("#btn").css({"background":"#9fa0a0"});
+              $("#btn").prop("disabled", true);
+            }
+            if (password1.length >= 6 && password1 == password2) {
+              $("#btn").css({"background":"#263238"});
+              $("#btn").prop("disabled", false);
+            }
+          }
+        },1000);
+      });
+    </script>
+
+    <div class="actions">
+      <%= f.submit "保存", id: "btn" %>
+    </div>
+  <% end %>
+
+
+
+
+</div>
+

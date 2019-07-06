@@ -1,0 +1,9 @@
+<p>こんにちは！</p>
+
+<p>beagleを運営しているTakumaNです。</p>
+
+<% if @resource.try(:unconfirmed_email?) %>
+  <p>あなたのアカウントのメールアドレスを「<%= @resource.unconfirmed_email %>」に変更します。</p>
+<% else %>
+  <p>あなたのアカウントのメールアドレスは「<%= @resource.email %>」に変更されました！</p>
+<% end %>

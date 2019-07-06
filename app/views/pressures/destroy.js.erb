@@ -1,0 +1,2 @@
+$("#posts_pressure").html("<%= j(render(partial: 'posts/posts', locals: { posts:@posts }))%>");
+$("#post_pressure").html("<%= j(render(partial: 'posts/post_pressure', locals: { pressure:@pressure, post:@post }))%>");

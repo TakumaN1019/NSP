@@ -1,0 +1,311 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+  $red: #f44336;
+  $blue: #2196F3;
+  $green: #4CAF50;
+  $yellow: #FFEB3B;
+  $orange: #FF9800;
+  $white: #FAFAFA;
+  $light_gray: #E0E0E0;
+  $gray: #9E9E9E;
+  $black: #263238;
+  $deep_black: #212121;
+
+  $main_color: $black;
+
+  body { margin:0; padding:50px 0 0 0; box-sizing:border-box; background:$white; }
+  div, h1, h2, h3, h4, p, a, span, input, textarea, ul, li, header, footer { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:rgba(0,0,0,0); }
+  a, a:hover, a:active { text-decoration:none; background:none; color:$blue; }
+
+
+  // font-famiry
+  h1, h2, h3, h4, p, a { font-family: 'Roboto', 'Kosugi Maru', sans-serif; }
+  .logo_font, .btn, .send_btn, #flash p { font-family: 'Fredoka One', cursive; /*'Roboto', sans-serif;*/ }
+
+  .ads_mobile { width:100%; height:auto; margin:30px auto; padding:20px 0; text-align:center; background:$white; }
+  .ads_pc { display:none; width:100%; height:auto; margin:30px auto; padding:20px 0; text-align:center; background:$white; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); }
+
+  #success { position:fixed; top:80px; right:-100%; padding:15px 50px 15px 30px; background:$green; border-radius:1000px 0 0 1000px;
+    p { color:white; font-size:18px; text-align:center; padding:0; }
+  }
+
+  #notice { position:fixed; top:0; bottom:0; left:0; right:0; z-index:20; width:90%; height:200px; margin:auto;  padding:30px; background:$white; border-radius:10px; }
+  #notice_back { position:fixed; top:0; bottom:0; left:0; right:0; z-index:15; width:100%; height:100%; margin:auto;  background:rgba(0,0,0,0.6); cursor:pointer; }
+
+  #alert { width:95%; height:auto; margin:30px auto; padding:20px; background:$white; border:2px solid $red; border-radius:10px; text-align:center;
+    #message { width:100%; height:auto; padding:30px 20px; color:$black; font-size:15px; }
+    #close { width:100%; height:auto; color:$red; font-size:20px; display:inline; cursor:pointer; }
+  }
+
+  header { width:100%; height:50px; position:fixed; top:0; left:0; right:0; background:$main_color; z-index:10;
+    #logo { width:auto; height:50px; margin-left:20px; float:left; display:table; }
+      #logo a { color:$white; font-size:25px; padding:10px; display:table-cell; vertical-align:middle; }
+    #logo:hover { background:rgba(255,255,255,0.05); border-radius:100000px; }
+    .show_header_menu { cursor:pointer; }
+    #menu, #mypage { width:50px; height:50px; margin:0; padding:0; float:right; color:$white; font-size:30px; text-align:center; display:table; }
+      #menu i, #mypage a { color:$white; display:table-cell; vertical-align:middle; }
+    #menu i:hover, #mypage a:hover { background:rgba(255,255,255,0.05); border-radius:10000px; }
+  }
+
+  #header_menu { display:none; position:fixed; top:50px; left:0; right:0; width:100%; margin:auto; padding:20px 0; background:$white; border-bottom:0.5px solid #909090; z-index:10;
+    ul { list-style:none; width:100%; height:auto; margin:auto;
+      li { width:calc(20vmin); height:calc(20vmin); margin:auto auto 20px auto; padding:10px; text-align:center; float:left;
+        a { color:$black;
+          .icon { position:relative; width:70%; height:70%; margin:auto;  font-size:40px; }
+          .name { width:98%; height:30%; margin:10px auto; font-size:13px; font-weight:900; color:$black; }
+        }
+      }
+      li:hover { background:rgba(0,0,0,0.05); border-radius:10000px;
+        .icon, .name { color:$blue; background:none; }
+      }
+    }
+  }
+  #back { display:none; position:fixed; top:0; bottom:0; left:0; right:0; width:100%; height:100%; margin:auto; padding:0; background:rgba(0,0,0,0.4); z-index:8; cursor:pointer; }
+
+
+  #about { width:100%; height:auto; margin:auto; padding:50px 30px; clear:both; background:$blue;
+    p { color:$white; font-size:15px; margin:20px 10px; }
+    #btns { margin:auto; padding:50px 0 10px 0; text-align:center;
+      .btn { width:auto; height:auto; margin:10px; padding:15px 20px; color:$white; background:$main_color; border-radius:5px; display:inline; }
+      .btn:hover { opacity:0.9; }
+    }
+  }
+
+  #user { width:100%; height:auto; margin:auto; padding:50px 0; background:$white; text-align:center;
+    #image { width:100px; height:100px; margin:auto; border-radius:10000px; }
+    #name { text-align:center; line-height:25px; margin:20px auto; color:$black; font-size:25px; font-weight:500; }
+    #edit_btn { color:$black; border:1px solid $black; border-radius:5px; padding:10px; box-sizing:border-box; }
+    #edit_btn:hover { color:$blue; border:1px solid $blue; }
+  }
+
+  #users { width:95%; height:auto; margin:30px auto; padding:50px 0; clear:both; background:$white; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2);
+    h1 { color:$black; text-align:center; font-size:30px; }
+    #users_count { clear:both;
+      p { text-align:center; }
+    }
+    .user_field { width:calc(31.6vmin); height:calc(31.6vmin); margin:auto; float:left;
+      .user { width:100%; height:100%; margin:10px auto; padding:calc(3vmin); display:block; }
+        .user_image { width:calc(23vmin); height:calc(23vmin); margin:auto; text-align:center; border-radius:100000000px; }
+          .user_image img { width:100%; height:100%; border-radius:10000000px; }
+        .user_name { width:100%; height:auto; padding:10px 20px; color:$black; font-size:15px; text-align:center; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+      .user:hover { background:rgba(0,0,0,0.02); border-radius:10000px; }
+    }
+  }
+
+  #post { width:100%; height:auto; margin:30px auto; padding:10px; background:$white; clear:both; 
+    .post_user { width:100%; height:50px; margin:auto; padding:0; display:block; color:$black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+       .image { width:15%; height:100%; padding:0 10px; float:left;
+         img { width:50px; height:100%; border-radius:1000px; object-fit:contain; }
+       }
+       .name { width:85%; height:100%; padding:10px 20px; color:$black; font-size:20px; float:right; }
+     }
+    .post_remove { width:100%; height:auto; margin:auto; padding:20px 0; 
+      a { color:$blue; font-size:18px; padding:10px; }
+      a:hover { background:rgba(0,0,0,0.05); border-radius:10000px; }
+    }
+    .post_content { display:block; clear:both;
+      .text { color:$black; padding:10px;
+        p { margin:15px 0; font-size:18px; }
+      }
+      .image { width:100%; height:auto;
+        img { width:100%; height:auto; object-fit:contain; }
+      }
+    }
+    .press { width:80%; height:70px; margin:30px auto; padding:0;
+      .good { width:50%; height:100%; padding:10px; font-size:50px; text-align:center; float:left; 
+        .done { color:$blue; }
+        .done:hover { opacity:0.9; }
+        .none { color:$light_gray; }
+        .none:hover { color:$blue; }
+      }
+      .bad { width:50%; height:100%; padding:10px; font-size:50px; text-align:center; float:right;
+        .done { color:$blue; }
+        .done:hover { opacity:0.9; }
+        .none { color:$light_gray; }
+        .none:hover { color:$blue; }
+      }
+    }
+    .score { width:100%; height:auto; margin:30px auto; padding:20px 20%; background:$blue; border-radius:10px;
+      p { color:$white; font-size:18px; font-weight:900; margin:15px 0; }
+    }
+  }
+
+  .posts { width:100%; height:auto; margin:30px 0; padding:50px 10px; clear:both;
+    .post { width:100%; height:auto; margin:auto; padding:10px; background:$white; border-bottom:1px solid #eee; 
+      .post_user { width:100%; height:50px; margin:auto; padding:0; display:block; color:$black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; 
+         .image { width:15%; height:100%; padding:0 10px; float:left; 
+           img { width:50px; height:100%; border-radius:1000px; object-fit:contain; }
+         }
+         .name { width:85%; height:100%; padding:10px 20px; color:$black; font-size:20px; float:right; }
+       }
+      .post_content { display:block; clear:both; 
+        .text { color:$black; padding:10px; 
+          p { margin:15px 0; font-size:18px; }
+        }
+        .image { width:100%; height:auto; 
+          img { width:100%; height:auto; object-fit:contain; }
+        }
+      }
+      .press { width:80%; height:70px; margin:30px auto; padding:0;  
+        .good { width:50%; height:100%; padding:10px; font-size:50px; text-align:center; float:left;
+          .done { color:$blue; }
+          .none { color:$light_gray; }
+          .none:hover { color:$blue; }
+        }
+        .bad { width:50%; height:100%; padding:10px; font-size:50px; text-align:center; float:right;
+          .done { color:$blue; }
+          .none { color:$light_gray; }
+          .none:hover { color:$blue; }
+        }
+      }
+      .score { width:100%; height:auto; margin:30px auto; padding:20px 20%; background:$blue; border-radius:10px; 
+        p { color:$white; font-size:18px; font-weight:900; margin:15px 0; }
+      }
+    }
+  }
+
+  #all_post_remove { width:100%; height:auto; margin:30px auto; padding:30px; text-align:center; 
+    #btn { display:inline-block; width:auto; height:auto; margin:auto; padding:20px; background:$red; border-radius:5px; color:$white; font-size:25px; text-align:center; }
+    #btn:hover { opacity:0.9; }
+  }
+
+  #form { width:100%; height:auto; margin:auto; padding:20px 0;
+    h1 { color:$black; font-size:25px; font-weight:500; border:1px solid black; border-radius:10px; width:auto; height:auto; margin:30px 20px; padding:10px 20px; display:inline-block; }
+    p { color:$black; font-size:17px; margin:20px; padding:10px; }
+    a { color:$blue; font-size:17px; padding:10px; }
+    a:hover { background:rgba(0,0,0,0.05); border-radius:1000px; }
+
+    .field { width:80%; height:auto; margin:0 auto 20px auto; padding:0 auto 100px auto;
+      p { color:$black; font-size:17px; margin:0; padding:10px; }
+      label { color:$black; font-size:17px; }
+      input { width:100%; padding:10px 10px 2px 10px; color:$black; font-size:20px; border:none; border-bottom:1px solid rgba(0,0,0,0.2); background:$white; }
+      textarea { width:100%; height:300px; padding:10px; color:$black; font-size:20px; border:1px solid rgba(0,0,0,0.2); background:$white; }
+      input:focus, textarea:focus { border-bottom:3px solid $blue; outline:0; }
+
+      // 画像
+      .imagePreview { width:95%; height:0; margin:30px 2.5%; background-position:center center; background-size:contain; //プレビュー画像の表示領域
+                      background-repeat:no-repeat; display:inline-block; text-align:center; }
+      .image_none { height:0; }
+      .image_there { height:300px; }
+        .imagePreview img { width:auto; height:auto; max-width:100%; max-height:100%; } //プレビュー画像
+      .input-group-btn { text-align:center; margin:auto; padding-bottom:20px; display:block; cursor:pointer; } //画像アップロードボタン
+        .btn-primary { color:$black; font-size:20px; padding:15px; box-sizing:border-box; background:white; border:0.5px solid $black; } //画像アップロードボタン
+
+      // 既存の画像を削除するボタン
+      .remove_label { width:120px; height:auto; margin:0 auto 30px auto; padding:5px; background:white; border:0.5px solid $black; border-radius:5px; cursor:pointer; display:block;
+                      color:$black; text-align:center; font-size:15px; }
+      .remove_label:hover { background:$black; border:none; color:$blue; }
+      .remove_image_btn { display:none; }
+    }
+
+
+    // エラーメッセージを表示するところ。fieldクラスをオーバーライドしている。
+    .error_field { background:white;
+      .error_message { color:#e85564; }
+    }
+
+    // パスワード変更
+    #password_change_btn { display:inline-block; cursor:pointer; }
+    #password_change_btn:hover { background:rgba(0,0,0,0.05); border-radius:10000px; }
+    #password_change_field { display:none; }
+
+    // SNS認証ボタン
+    #auth_links { width:100%; height:auto; padding:30px 0;
+      .auth_link { width:200px; height:60px; margin:15px auto; padding:15px; border-radius:10px; display:block; color:white; font-size:25px; text-align:center; }
+      .auth_link:hover { opacity:0.9; }
+      .twitter { background:$blue; color:white; }
+      .google { background:#4285f4; color:white; }
+      .facebook { background:#3b5998; color:white; }
+    }
+
+    // deviseのshared/_links
+    #shared_links { padding:40px 20px; text-align:center;
+      a { color:$blue; display:inline-block; }
+    }
+
+    .actions { text-align:center; clear:both;
+      #btn { width:160px; height:50px; padding:10px; color:$white; font-size:20px; background:#9fa0a0; border:none; border-radius:10px; cursor:pointer; }
+      #btn:hover { opacity:0.9; }
+    }
+
+  }
+
+
+  footer { width:100%; height:auto; padding:25px 0; clear:both; text-align:center;
+    ul { width:95%; height:auto; margin:auto; list-style:none; text-align:center; }
+      li { margin:10px; font-size:18px; display:inline-block; }
+        li a { color:#909090; padding:10px; }
+        li a:hover { color:#909090; background:rgba(0,0,0,0.05); border-radius:1000px; }
+    #footer_logo { width:100%; height:50px; margin-top:30px; clear:both; position:relative; }
+      #footer_logo_soto { width:35px; height:35px; margin:auto; background:#909090; border-radius:10000px; position:absolute; top:0; bottom:0; left:0; right:0; }
+      #footer_logo_uti { width:13px; height:13px; margin:auto; background:$white; border-radius:10000px; position:absolute; top:0; bottom:0; left:0; right:0; }
+  }
+
+  @media screen and (min-width:750px) {
+
+    body { padding-top:90px; }
+
+    .ads_mobile { display:none; }
+    .ads_pc { display:block; width:70%; }
+
+    #notice { width:400px; }
+
+    header { height:60px;
+      #logo { height:60px; }
+        #logo a { font-size:20px; margin:10px 20px; padding:7.5px; }
+      #menu, #mypage { width:60px; height:60px; margin-right:10px; font-size:35px; }
+    }
+    #header_menu { top:60px;
+      ul { width:70%;  margin:auto;
+        li { width:80px; height:80px; }
+      }
+    }
+
+    #about { width:70%; margin:auto; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); }
+    #user { width:70%; margin:auto; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); }
+    #users { width:750px; margin:auto;
+      .user_field { width:150px; height:150px;
+        .user { width:100%; height:100%; }
+          .user_image { width:80px; height:80px; }
+      }
+    }
+    #post { width:50%; height:auto; margin:50px auto; padding:50px 0; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); }
+    .posts { width:50%; height:auto; margin:50px auto; padding:50px 0; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); }
+    #form { width:80%; margin:auto; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2);
+      .btn-primary:hover { color:white; background:$black; border:1px solid white; }
+    }
+
+  }
+
+
+  @media screen and (min-width:960px) {
+    .ads_pc { width:60%; }
+    #header_menu {
+      ul { width:35%; }
+    }
+    #home_top { width:60%; }
+    #user { width:60%; }
+    #users { width:960px; margin:auto;
+      .user_field { width:160px; height:160px;
+        .user { width:100%; height:100%; }
+          .user_image { width:80px; height:80px; }
+      }
+    }
+    #post { width:40%; }
+    .posts { width:40%; }
+    #form { width:50%; }
+  }

@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <%= "死亡したポスト一覧 | beagle" %>
+<% end %>
+
+<div id="all_post_remove">
+  <%= link_to "一括削除", all_destroy_path, data: { confirm: "本当に一括削除しますか？" }, method: :delete, id:"btn" %>
+</div>
+
+<div id="posts_pressure">
+  <%= render "posts", posts:@posts %>
+</div>
+
+

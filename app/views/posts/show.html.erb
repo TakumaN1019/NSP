@@ -1,0 +1,48 @@
+<% content_for :title do %>
+  <%= "#{@post.text} | beagle" %>
+<% end %>
+<% content_for :image do %>
+  <% if @post.image? %>
+    <%= "#{@post.image.url}" %>
+  <% else %>
+    <%= "https://simple-post-mall.s3-ap-northeast-1.amazonaws.com/base/post_red.png" %>
+  <% end %>
+<% end %>
+
+<div id="post">
+  <%= link_to user_path(@post.user.id), class:"post_user" do %>
+    <div class="image"><%= image_tag @post.user.image.url if @post.user.image?  %>
+                       <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/sub.takuman.me/base/favicon.png" if not @post.user.image? %></div>
+    <div class="name"><%= @post.user.name ? @post.user.name : "noname" %></div>
+  <% end %>
+  <% if user_signed_in? %>
+    <% if current_user?(@post.user) %>
+      <div class="post_remove">
+        <%= link_to "削除", post_path(@post.id), data: { confirm: "本当に削除しますか？" }, method: :delete %>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="post_content">
+    <div class="text"><%= simple_format(@post.text) %>文字数： <%= @post.text.length %></div>
+    <div class="image"><%= image_tag @post.image.url if @post.image? %></div>
+  </div>
+  <% if user_signed_in? %>
+    <div id="post_pressure">
+      <%= render "posts/post_pressure", pressure:@pressure, post:@post %>
+    </div>
+    <%# if current_user.id == 1 %>
+      <div class="score">
+        <p>評価数: <%= Pressure.where(post_id:@post.id).count %></p>
+        <p>ポストのスコア: <%= @post.score %></p>
+        <p>投稿者のスコア: <%= @post.user.score %></p>
+        <% elapsed_time = (@post.created_at.to_time - DateTime.now).to_i.to_f / 60.to_f / 60.to_f * -1 %>
+        <p>経過時間: <%= elapsed_time.round(2) %>時間</p>
+      </div>
+    <%# end %>
+  <% end %>
+</div>
+
+<%# アドセンス広告=>レクタングル大 %>
+<%= render "home/adsense" %>
+
+

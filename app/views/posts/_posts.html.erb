@@ -1,0 +1,45 @@
+<div class="posts">
+  <% posts.each do |post| %>
+    <div class="post">
+      <%= link_to user_path(post.user.id), class:"post_user" do %>
+        <div class="image"><%= image_tag post.user.image.url if post.user.image?  %>
+                           <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/sub.takuman.me/base/favicon.png" if not post.user.image? %></div>
+        <div class="name"><%= post.user.name ? post.user.name : "noname" %></div>
+      <% end %>
+      <%= link_to post_path(post.id), class:"post_content" do %>
+        <div class="text"><%= simple_format(post.text) %></div>
+        <div class="image"><%= image_tag post.image.url if post.image? %></div>
+      <% end %>
+      <% if user_signed_in? %>
+        <% pressure = Pressure.find_by(user_id:current_user.id, post_id:post.id) %>
+        <div class="press">
+          <%# Goodボタン %>
+          <div class="good">
+            <% if pressure.present? && pressure.direction == "good" %>
+              <%= link_to reset_press_path(post.id), data: { confirm:"高評価を取り消しますか？？" }, method: :delete, remote: true do %><i class="fas fa-smile done"></i><% end %>
+            <% else %>
+              <%= link_to good_press_path(post.id), method: :post, remote: true do %><i class="far fa-smile none"></i><% end %>
+            <% end %>
+          </div>
+          <div class="bad">
+            <%# Badボタン %>
+            <% if pressure.present? && pressure.direction == "bad" %>
+              <%= link_to reset_press_path(post.id), data: { confirm:"低評価を取り消しますか？" }, method: :delete, remote: true do %><i class="fas fa-frown done"></i><% end %>
+            <% else %>
+              <%= link_to bad_press_path(post.id), method: :post, remote: true do %><i class="far fa-frown none"></i><% end %>
+            <% end %>
+          </div>
+        </div>
+        <%# if current_user.id == 1 %>
+          <div class="score">
+            <p>評価数: <%= Pressure.where(post_id:post.id).count %></p>
+            <p>ポストのスコア: <%= post.score %></p>
+            <p>投稿者のスコア: <%= post.user.score %></p>
+            <% elapsed_time = (post.created_at.to_time - DateTime.now).to_i.to_f / 60.to_f / 60.to_f * -1 %>
+            <p>経過時間: <%= elapsed_time.round(2) %>時間</p>
+          </div>
+        <%# end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

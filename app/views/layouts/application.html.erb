@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "beagle" %></title>
+    <link rel="icon" href="https://s3-ap-northeast-1.amazonaws.com/sub.takuman.me/base/favicon.png" type="image/png">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62311161-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-62311161-7');
+    </script>
+
+
+    <!-- Google Webフォント -->
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Kosugi+Maru|Roboto&display=swap" rel="stylesheet">
+  </head>
+
+
+  <body>
+    <% if flash[:success] %>
+      <div id="success">
+        <p><%= flash[:success] %></p>
+      </div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div id="notice">
+        <p id="message"><%= flash[:notice] %></p>
+      </div>
+      <div id="notice_back"></div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div id="alert">
+        <p id="message"><%= flash[:alert] %></p>
+        <p id="close"><i class="fas fa-times"></i></p>
+      </div>
+    <% end %>
+
+    <header>
+      <% if user_signed_in? %>
+        <div id="logo"><%= link_to root_path, class:"logo_font" do %>beagle<% end %></div>
+        <div id="menu" class="show_header_menu"><i class="fas fa-bars"></i></div>
+        <div id="mypage"><%= link_to user_path(current_user.id) do %><i class="far fa-user-circle"></i><% end %></div>
+      <% else %>
+        <div id="logo"><%= link_to root_path, class:"logo_font" do %>beagle<% end %></div>
+        <div id="menu" class="show_header_menu"><i class="fas fa-bars"></i></div>
+      <% end %>
+    </header>
+
+    <div id="header_menu">
+      <ul>
+        <% if user_signed_in? %>
+          <li><%= link_to root_path do %><div class="icon"><i class="fas fa-igloo"></i></div><div class="name">トップ</div><% end %></li>
+          <li><%= link_to ranking_path do %><div class="icon"><i class="fas fa-crown"></i></div><div class="name">ランキング</div><% end %></li>
+          <li><%= link_to user_path(current_user.id) do %><div class="icon"><i class="far fa-user-circle"></i></div><div class="name">マイページ</div><% end %></li>
+          <li><%= link_to new_post_path do %><div class="icon"><i class="far fa-edit"></i></div><div class="name">投稿</div><% end %></li>
+          <li><%= link_to users_path do %><div class="icon"><i class="fas fa-users"></i></div><div class="name">ユーザー一覧</div><% end %></li>
+          <% if current_user.id == 1 %>
+            <li><%= link_to dead_posts_path do %><div class="icon"><i class="far fa-meh-blank"></i></div><div class="name">天国</div><% end %></li>
+          <% end %>
+          <li><%= link_to(logout_path(current_user.id), method: :delete) do %><div class="icon"><i class="far fa-grimace"></i></div><div class="name">ログアウト</div><% end %></li>
+        <% else %>
+          <li><%= link_to root_path do %><div class="icon"><i class="fas fa-igloo"></i></div><div class="name">トップ</div><% end %></li>
+          <li><%= link_to ranking_path do %><div class="icon"><i class="fas fa-crown"></i></div><div class="name">ランキング</div><% end %></li>
+          <li><%= link_to users_path do %><div class="icon"><i class="fas fa-users"></i></div><div class="name">ユーザー一覧</div><% end %></li>
+          <li><%= link_to login_get_path do %><div class="icon"><i class="far fa-grin"></i></div><div class="name">ログイン</div><% end %></li>
+          <li><%= link_to signup_get_path do %><div class="icon"><i class="far fa-grin-tongue-wink"></i></div><div class="name">新規登録</div><% end %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div id="back"></div><!-- ヘッダーメニューを表示する時に出てくる透明の膜 -->
+
+    <%= yield %>
+
+    <footer>
+      <ul>
+        <% if user_signed_in? %>
+          <li><%= link_to "トップ", root_path %></li>
+          <li><%= link_to "ランキング", ranking_path %></li>
+          <li><%= link_to "ユーザー一覧", users_path %></li>
+          <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+        <% else %>
+          <li><%= link_to "トップ", root_path %></li>
+          <li><%= link_to "ランキング", ranking_path %></li>
+          <li><%= link_to "ユーザー一覧", users_path %></li>
+          <li><%= link_to "ログイン", login_get_path %></li>
+          <li><%= link_to "新規登録", signup_get_path %></li>
+        <% end %>
+      </ul>
+      <div id="footer_logo"><div id="footer_logo_soto"></div><div id="footer_logo_uti"></div></div>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<% content_for :title do %>
+  <%= "確認メールの再送 | beagle" %>
+<% end %>
+
+<div id="form">
+  <h1>確認メールの再送</h1>
+
+  <%= form_for(resource, as: resource_name, url: confirmation_path, html: { method: :post }) do |f| %>
+    <div class="field">
+      <label>メールアドレス</label>
+      <%= f.email_field :email, autofocus: true, class: "require", autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+    </div>
+
+    <script>
+      $(function(){
+        // メールアドレスとパスワードを入力したらsubmitできる
+        setInterval(function(){
+          let value = $(".require").val();
+          if ( value == "" || !value.match(/[^\s\t]/) ) {
+            $("#btn").css({"background":"#9fa0a0"});
+            $("#btn").prop("disabled", true);
+          } else {
+            $("#btn").css({"background":"#263238"});
+            $("#btn").prop("disabled", false);
+          }
+        },1000);
+      });
+    </script>
+    <div class="actions">
+      <%= f.submit "送信",  disabled:true, id:"btn" %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+
+</div>
