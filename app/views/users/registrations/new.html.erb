@@ -19,7 +19,7 @@
             <i class="fab fa-twitter"></i> Twitter
           <% end %>
         <% elsif OmniAuth::Utils.camelize(provider) == "GoogleOauth2"  %>
-          <%= link_to(omniauth_authorize_path(resource_name, provider), class:"auth_link google") do %>
+          <%= link_to(omniauth_authorize_path(resource_name, provider), method: :post, class:"auth_link google") do %>
             <i class="fab fa-google"></i> Google
           <% end %>
         <% elsif OmniAuth::Utils.camelize(provider) == "Facebook" %>

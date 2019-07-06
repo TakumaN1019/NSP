@@ -39,6 +39,7 @@ gem 'libv8' #またはgem 'libv8', '!= 6.7.288.46.1'
 
 gem 'devise'
 gem 'omniauth'
+gem "omniauth-rails_csrf_protection" # omniauthの脆弱性対策
 gem 'omniauth-twitter' #Twitterでログイン
 gem 'omniauth-google-oauth2' #googleでログイン
 gem 'omniauth-facebook' #facebookでログイン
