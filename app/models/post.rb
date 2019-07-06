@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
 
   # 選択圧
-  has_many :pressures
+  has_many :pressures, dependent: :destroy
   has_many :users, through: :pressures
 
   # オリジナルのカスタムバリデーション(日本語化するよりもこっちのほうが自由度が高いので良い)

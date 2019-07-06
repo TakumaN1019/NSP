@@ -23,14 +23,14 @@
     <% end %>
   <% end %>
   <div class="post_content">
-    <div class="text"><%= simple_format(@post.text) %>文字数： <%= @post.text.length %></div>
+    <div class="text"><%= simple_format(@post.text) %></div>
     <div class="image"><%= image_tag @post.image.url if @post.image? %></div>
   </div>
   <% if user_signed_in? %>
     <div id="post_pressure">
       <%= render "posts/post_pressure", pressure:@pressure, post:@post %>
     </div>
-    <%# if current_user.id == 1 %>
+    <% if current_user.id == 1 %>
       <div class="score">
         <p>評価数: <%= Pressure.where(post_id:@post.id).count %></p>
         <p>ポストのスコア: <%= @post.score %></p>
@@ -38,7 +38,7 @@
         <% elapsed_time = (@post.created_at.to_time - DateTime.now).to_i.to_f / 60.to_f / 60.to_f * -1 %>
         <p>経過時間: <%= elapsed_time.round(2) %>時間</p>
       </div>
-    <%# end %>
+    <% end %>
   <% end %>
 </div>
 
