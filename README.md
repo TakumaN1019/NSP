@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby version 2.5.3
+Rails version 5.2.3
 
-Things you may want to cover:
+Database MariaDB
+Web server Nginx
+Application server unicorn
 
-* Ruby version
 
-* System dependencies
+「あ」は「あ」の１文字を送り合うことができるメッセージサービスです。「あ」しか送られてこないし、「あ」しか送ることができないので、いちいち文章を考える手間がかかりません。
 
-* Configuration
+また、会話するほど親しい仲ではない人と気楽にやりとりすることで、親密度が増すこともあるかもしれん。
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+「あ」の受け取り範囲は「全員から」と「自分がお気に入りにしたユーザーのみ」のどちらかに設定することができ、知り合いとだけ「あ」のやりとりをすることも可能です！
